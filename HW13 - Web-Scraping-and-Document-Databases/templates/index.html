@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Mars</title>
+    <!-- There are only one thing that needs css. So I am going to create the css within the index.html directly -->
+    <style>
+        .col-md-8>img{
+            max-width: 100%;
+        }
+    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron text-center">
+            <h1>Mission to Mars</h1>
+            <a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape New Data</a>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Latest Mars News</h2>
+                <h4>{{ mars["news_title"] }}</h4>
+                <p>{{ mars["news_p"] }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <h2>Featured Mars Image</h2>
+                <img src= {{ mars["featured_image_url"] }} class="img-fluid"/>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <h4>Current Weather on Mars</h4>
+                    <p class="card-text">{{ mars["mars_weather"] }}</p>
+                </div>
+                <div class="box">
+                    <h4>Mars Facts</h4>
+                    <!-- add safe to load the table -->
+                    {{ mars["table"] | safe }} 
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading text-center panel-relative">
+                <h2>Mars Hemispheres</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                {% for data in mars["hemisphere"][0:2] %}
+                <img src="{{ data["img_url"] }}" class="img-fluid img-thumbnail" height="550" width="550">
+                <h3>{{ data["title"] }}</h3>
+                {% endfor %}
+            </div>
+            
+            <div class="col-md-6">
+                {% for data in mars["hemisphere"][2:4] %}
+                <img src="{{ data["img_url"] }}" class="img-fluid img-thumbnail" height="550" width="550">
+                <h3>{{ data["title"] }}</h3>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
